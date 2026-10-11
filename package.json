@@ -1,12 +1,30 @@
 {
 	"name": "@mjlang/pi-statusline",
 	"version": "0.1.0",
-	"private": true,
 	"description": "Two-line status footer for Pi",
 	"keywords": [
 		"pi-package"
 	],
+	"homepage": "https://github.com/MJLang/pi-statusline#readme",
+	"bugs": {
+		"url": "https://github.com/MJLang/pi-statusline/issues"
+	},
+	"license": "MIT",
+	"author": "Martin Lang-Roman",
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/MJLang/pi-statusline.git"
+	},
+	"files": [
+		"src",
+		"README.md",
+		"LICENSE",
+		"THIRD_PARTY_NOTICES.md"
+	],
 	"type": "module",
+	"publishConfig": {
+		"access": "public"
+	},
 	"scripts": {
 		"fmt": "oxfmt .",
 		"fmt:check": "oxfmt --list-different .",

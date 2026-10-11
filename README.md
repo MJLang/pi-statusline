@@ -5,7 +5,19 @@ model, context use, provider use or paid cost, and selected service status.
 
 ## Install
 
-Run `pi install ~/development/ai/pi-statusline`.
+From npm:
+
+```sh
+pi install npm:@mjlang/pi-statusline
+```
+
+Or install directly from GitHub:
+
+```sh
+pi install git:github.com/MJLang/pi-statusline
+```
+
+For local development, run `pi install .` from this repository.
 
 ## Files
 
@@ -17,5 +29,9 @@ Run `pi install ~/development/ai/pi-statusline`.
 - `src/statuses.ts`: read OpenViking and Langfuse status.
 
 Run `pnpm install`, then `pnpm run check`.
+
+## License
+
+MIT. See [LICENSE](LICENSE) and [third-party notices](THIRD_PARTY_NOTICES.md).
 
 Design: viking://user/martin/resources/projects/pi-statusline/notes/design.md
