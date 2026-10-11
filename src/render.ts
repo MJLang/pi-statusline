@@ -107,12 +107,8 @@ function makeOpenVikingSegments(
 	const openviking = statuses.openviking;
 	if (!openviking) return [];
 	if (openviking.state === "connected") {
-		const count = withCount && openviking.count ? ` ${openviking.count}` : "";
-		const main: Segment = {
-			plain: `OV ✓${count}`,
-			styled: `${theme.fg("dim", "OV")} ${theme.fg("success", "✓")}${count ? ` ${theme.fg("dim", openviking.count as string)}` : ""}`,
-		};
-		const parts = [main];
+		const parts: Segment[] = [];
+		if (withCount && openviking.count) parts.push(segment(openviking.count, "text", theme));
 		if (openviking.toolsFailed) parts.push(segment("tools ✗", "warning", theme));
 		return parts;
 	}
