@@ -1,0 +1,40 @@
+{
+	"name": "@mjlang/pi-statusline",
+	"version": "0.1.0",
+	"private": true,
+	"description": "Two-line status footer for Pi",
+	"keywords": [
+		"pi-package"
+	],
+	"type": "module",
+	"scripts": {
+		"fmt": "oxfmt .",
+		"fmt:check": "oxfmt --list-different .",
+		"lint": "oxlint . --format agent",
+		"typecheck": "tsc --noEmit",
+		"dead-code": "fallow dead-code --format json --quiet",
+		"check": "pnpm run fmt:check && pnpm run lint && pnpm run typecheck && pnpm run dead-code"
+	},
+	"devDependencies": {
+		"@earendil-works/pi-coding-agent": "1.1.0",
+		"@earendil-works/pi-tui": "1.1.0",
+		"@types/node": "26.6.5",
+		"fallow": "3.33.1",
+		"oxfmt": "0.72.0",
+		"oxlint": "1.87.0",
+		"typescript": "6.0.3"
+	},
+	"peerDependencies": {
+		"@earendil-works/pi-coding-agent": "*",
+		"@earendil-works/pi-tui": "*"
+	},
+	"engines": {
+		"node": ">=22.23.1"
+	},
+	"packageManager": "pnpm@12.4.1",
+	"pi": {
+		"extensions": [
+			"./src/index.ts"
+		]
+	}
+}

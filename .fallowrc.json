@@ -1,0 +1,9 @@
+{
+	"entry": ["src/index.ts"],
+	"ignorePatterns": ["node_modules/**", ".fallow/**", ".cache/**", "dist/**", "coverage/**"],
+	"rules": {
+		"boundary-violation": "off",
+		"policy-violation": "off"
+	},
+	"ignoreDependencies": ["@earendil-works/pi-coding-agent", "@earendil-works/pi-tui"]
+}
