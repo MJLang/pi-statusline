@@ -41,11 +41,17 @@ function logFirstRenderError(error: unknown): void {
 	}
 }
 
+function usageProviderFor(provider: string): UsageProvider | undefined {
+	if (provider === "anthropic") return provider;
+	// Pi can use ChatGPT OAuth under `openai`; share the existing Codex usage cache.
+	if (provider === "openai" || provider === "openai-codex") return "openai-codex";
+}
+
 function paidCost(ctx: ExtensionContext): number {
 	let total = 0;
 	const include = (provider: unknown, modelId: unknown): boolean => {
 		if (typeof provider !== "string" || typeof modelId !== "string") return true;
-		if (provider !== "anthropic" && provider !== "openai-codex") return true;
+		if (!usageProviderFor(provider)) return true;
 		const model = ctx.modelRegistry.find(provider, modelId);
 		return !model || !ctx.modelRegistry.isUsingOAuth(model);
 	};
@@ -74,9 +80,9 @@ function paidCost(ctx: ExtensionContext): number {
 }
 
 function currentProvider(ctx: ExtensionContext, model = ctx.model): UsageProvider | undefined {
-	if (!model || (model.provider !== "anthropic" && model.provider !== "openai-codex"))
-		return undefined;
-	return ctx.modelRegistry.isUsingOAuth(model) ? model.provider : undefined;
+	if (!model) return undefined;
+	const provider = usageProviderFor(model.provider);
+	return provider && ctx.modelRegistry.isUsingOAuth(model) ? provider : undefined;
 }
 
 function makeRenderState(
@@ -262,9 +268,10 @@ export default function (pi: ExtensionAPI): void {
 
 	pi.on("provider_stream_event", (event, ctx) =>
 		safeHandler(() => {
-			if (event.provider !== "openai-codex") return;
+			const provider = usageProviderFor(event.provider);
+			if (provider !== "openai-codex") return;
 			const codex = parseCodexEvent(event.data);
-			if (codex) saveInBackground("openai-codex", codex, ctx);
+			if (codex) saveInBackground(provider, codex, ctx);
 		}),
 	);
 
